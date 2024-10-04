@@ -19,7 +19,7 @@ def huvudsida():
 table = dynamodb.Table('Streamlit_Data')
 allowed_weeks = [str(week) for week in range(41, 49) if week != 44]
 
-vecka = st.selectbox("Välj vecka att visa", allowed_weeks)
+week = st.selectbox("Välj vecka att visa", allowed_weeks)
 
 items = get_entries_by_week(int(vecka))
 
