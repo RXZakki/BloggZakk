@@ -21,13 +21,13 @@ allowed_weeks = [str(week) for week in range(41, 49) if week != 44]
 
 week = st.selectbox("Välj vecka att visa", allowed_weeks)
 
-items = get_entries_by_week(int(vecka))
+items = get_entries_by_week(int(week))
 
 if not items:
-    st.info(f"Inga inlägg hittades för vecka {vecka}.")
+    st.info(f"Inga inlägg hittades för vecka {week}.")
 else:
     for item in items:
-        st.write(f"**Vecka:** {item['vecka']}")
+        st.write(f"**Vecka:** {item['week']}")
         st.write(f"**Datum:** {item['date']}")
         st.write(f"**Titel:** {item['title']}")
         st.write(f"**Innehåll:** {item['textruta']}")
@@ -43,10 +43,10 @@ else:
 
 from pyarrow import dictionary
 #min kod
-def database (title, textruta, taggar, mood, date, vecka):
+def database (title, textruta, taggar, mood, date, week):
     date.put_item(
      dictionary = {
-        "Week": vecka,
+        "Week": week,
         "tags": taggar,
         "title": title,
         "textruta": textruta,
@@ -94,5 +94,5 @@ if st.button('Spara'):
  if not title or not textruta:
   st.error('Titel och innehåll är obligatoriska')
 else:
- database(title, textruta, mood, taggar, vecka, date)
+ database(title, textruta, mood, taggar, week, date)
  st.success('Inlägg sparat!')
